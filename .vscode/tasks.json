@@ -1,0 +1,129 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Application/Application.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build-release",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Application/Application.csproj",
+                "-c",
+                "Release",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "build-all",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/string-calculator-kata.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}/Tests/Tests.csproj"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "test"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/Application/Application.csproj",
+                "-c",
+                "Release",
+                "-r",
+                "win-x64",
+                "--self-contained",
+                "true",
+                "/p:PublishSingleFile=true",
+                "/p:IncludeNativeLibrariesForSelfExtract=true",
+                "/p:EnableCompressionInSingleFile=true",
+                "/p:DebugType=none",
+                "/p:DebugSymbols=false",
+                "-o",
+                "${workspaceFolder}/Publish"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "add-scalc-to-path",
+            "type": "shell",
+            "command": "powershell.exe",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\.vscode\\add-to-path.ps1"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "remove-scalc-from-path",
+            "type": "shell",
+            "command": "powershell.exe",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\.vscode\\remove-from-path.ps1"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "publish-and-install-scalc",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "publish",
+                "add-scalc-to-path"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "${workspaceFolder}/string-calculator-kata.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
